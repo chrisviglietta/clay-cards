@@ -3,7 +3,7 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { gameQuestions } from '@/lib/gameData';
 import { flashcards } from '@/lib/data';
 import { Flame, Timer, Trophy, User } from 'lucide-react';
@@ -51,7 +51,7 @@ export default function GamePage() {
   }, []);
 
   // Reset game function
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     if (isHighScore(streak)) {
       setTempScore(streak);
       setShowNameInput(true);
@@ -62,7 +62,7 @@ export default function GamePage() {
     setCurrentIndex(0);
     setTimeLeft(10);
     setIsStreakAnimating(false);
-  };
+  }, [streak, isHighScore]);
 
   // Handle name submission
   const handleNameSubmit = (e: React.FormEvent<HTMLFormElement>) => {

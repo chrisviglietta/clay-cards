@@ -1,5 +1,4 @@
 import { Flashcard } from './types';
-import { GameQuestion } from './types';
 
 export interface GameQuestion {
   id: number;
