@@ -8,6 +8,12 @@ import { gameQuestions } from '@/lib/gameData';
 import { flashcards } from '@/lib/data';
 import { Flame, Timer, Trophy, User } from 'lucide-react';
 import { getLeaderboard, updateLeaderboard, isHighScore } from '@/lib/leaderboard';
+import dynamic from 'next/dynamic';
+
+// Dynamically import react-confetti to avoid SSR issues
+const ReactConfetti = dynamic(() => import('react-confetti'), {
+  ssr: false
+});
 
 export default function GamePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,6 +28,8 @@ export default function GamePage() {
   const [tempScore, setTempScore] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [isStreakAnimating, setIsStreakAnimating] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   const currentQuestion = gameQuestions[currentIndex];
   const currentFlashcard = flashcards.find(f => f.integration === currentQuestion.integration);
@@ -111,6 +119,19 @@ export default function GamePage() {
     setShuffledOptions(shuffleArray(currentQuestion.options));
   }, [currentIndex, currentQuestion.options]);
 
+  // Update window size
+  useEffect(() => {
+    const updateWindowSize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    
+    if (typeof window !== 'undefined') {
+      updateWindowSize();
+      window.addEventListener('resize', updateWindowSize);
+      return () => window.removeEventListener('resize', updateWindowSize);
+    }
+  }, []);
+
   const handleOptionClick = (option: string) => {
     if (selectedOption !== null) return;
 
@@ -124,16 +145,11 @@ export default function GamePage() {
       setBestStreak(Math.max(bestStreak, newStreak));
       setIsStreakAnimating(true);
       
-      // Add confetti effect for correct answers
-      const colors = ['#FFD700', '#FF6B6B', '#4CAF50', '#00B4D8'];
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          setIsStreakAnimating(false);
-          setTimeout(() => setIsStreakAnimating(true), 50);
-        }, i * 300);
-      }
+      // Show confetti for correct answers
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 4000);
       
-      setTimeout(moveToNextQuestion, 1500);
+      setTimeout(moveToNextQuestion, 3000);
     } else {
       setTimeout(resetGame, 1500);
     }
@@ -161,6 +177,19 @@ export default function GamePage() {
 
   return (
     <main className="min-h-screen bg-white">
+      {showConfetti && (
+        <ReactConfetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={400}
+          gravity={0.2}
+          initialVelocityY={15}
+          initialVelocityX={5}
+          tweenDuration={3000}
+          colors={['#FFD700', '#FF6B6B', '#4CAF50', '#00B4D8', '#9B59B6']}
+        />
+      )}
       <Navigation />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <Image
