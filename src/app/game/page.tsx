@@ -228,6 +228,20 @@ export default function GamePage() {
             ))}
           </div>
 
+          {(selectedOption || timeLeft === 0) && (
+            <div className="mt-8 text-center bg-gray-50 rounded-lg p-6">
+              {timeLeft === 0 ? (
+                <p className="text-lg font-medium text-[#FF5C5C]">
+                  Time's up! The game will restart.
+                </p>
+              ) : (
+                <p className={`text-lg font-medium ${isCorrect ? 'text-emerald-500' : 'text-[#FF5C5C]'}`}>
+                  {isCorrect ? 'Correct!' : 'Incorrect!'} {currentQuestion.explanation}
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Leaderboard - Now moved below the game */}
           <div className="mt-16">
             <div className="bg-white shadow-sm border border-gray-100 rounded-xl p-6">

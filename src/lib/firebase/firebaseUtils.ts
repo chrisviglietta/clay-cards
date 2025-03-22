@@ -3,14 +3,22 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  User
 } from "firebase/auth";
 import {
   collection,
   addDoc,
   getDocs,
   doc,
+  getDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
+  DocumentData,
+  DocumentReference
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -40,8 +48,16 @@ export const getDocuments = async (collectionName: string) => {
   }));
 };
 
-export const updateDocument = (collectionName: string, id: string, data: any) =>
-  updateDoc(doc(db, collectionName, id), data);
+export const updateDocument = async (collectionName: string, document: DocumentData) => {
+  try {
+    const docRef = doc(db, collectionName, document.id);
+    await updateDoc(docRef, document);
+    return true;
+  } catch (error) {
+    console.error('Error updating document:', error);
+    return false;
+  }
+};
 
 export const deleteDocument = (collectionName: string, id: string) =>
   deleteDoc(doc(db, collectionName, id));
