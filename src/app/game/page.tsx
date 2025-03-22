@@ -26,14 +26,14 @@ export default function GamePage() {
   const currentQuestion = gameQuestions[currentIndex];
   const currentFlashcard = flashcards.find(f => f.integration === currentQuestion.integration);
 
-  // Get flame color based on streak
+  // Get flame color based on streak - Enhanced with more dramatic colors
   const getFlameColor = (currentStreak: number) => {
     if (currentStreak === 0) return 'text-orange-500';
-    if (currentStreak <= 2) return 'text-orange-400';
-    if (currentStreak <= 4) return 'text-orange-500';
-    if (currentStreak <= 6) return 'text-orange-600';
-    if (currentStreak <= 8) return 'text-orange-700';
-    return 'text-orange-800';
+    if (currentStreak <= 2) return 'text-orange-400 drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]';
+    if (currentStreak <= 4) return 'text-orange-500 drop-shadow-[0_0_15px_rgba(255,140,0,0.6)]';
+    if (currentStreak <= 6) return 'text-orange-600 drop-shadow-[0_0_20px_rgba(255,120,0,0.7)]';
+    if (currentStreak <= 8) return 'text-orange-700 drop-shadow-[0_0_25px_rgba(255,100,0,0.8)]';
+    return 'text-orange-800 drop-shadow-[0_0_30px_rgba(255,80,0,0.9)]';
   };
 
   // Initialize client-side state
@@ -112,7 +112,7 @@ export default function GamePage() {
   }, [currentIndex, currentQuestion.options]);
 
   const handleOptionClick = (option: string) => {
-    if (selectedOption !== null) return; // Prevent multiple selections
+    if (selectedOption !== null) return;
 
     setSelectedOption(option);
     const correct = option === currentQuestion.correctAnswer;
@@ -124,10 +124,17 @@ export default function GamePage() {
       setBestStreak(Math.max(bestStreak, newStreak));
       setIsStreakAnimating(true);
       
-      // Move to next question after delay
+      // Add confetti effect for correct answers
+      const colors = ['#FFD700', '#FF6B6B', '#4CAF50', '#00B4D8'];
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          setIsStreakAnimating(false);
+          setTimeout(() => setIsStreakAnimating(true), 50);
+        }, i * 300);
+      }
+      
       setTimeout(moveToNextQuestion, 1500);
     } else {
-      // Reset game after delay
       setTimeout(resetGame, 1500);
     }
   };
@@ -178,14 +185,20 @@ export default function GamePage() {
                 Current Streak: 
                 <span className="text-gray-900 font-semibold flex items-center">
                   <Flame 
-                    className={`w-4 h-4 mr-1 transition-all duration-300 ${
+                    className={`w-4 h-4 mr-1 transition-all duration-500 transform ${
                       isStreakAnimating 
-                        ? 'animate-[pulse_0.5s_ease-in-out_infinite,scale_0.5s_ease-in-out_infinite] scale-125' 
+                        ? 'animate-[bounce_0.5s_ease-in-out_infinite] scale-150 rotate-12' 
                         : ''
                     } ${getFlameColor(streak)}`}
                   />
-                  {streak}
-                </span> 
+                  <span className={`transition-all duration-300 ${
+                    isStreakAnimating 
+                      ? 'scale-125 font-bold text-orange-500'
+                      : ''
+                  }`}>
+                    {streak}
+                  </span>
+                </span>
                 | Best Streak: 
                 <span className="text-gray-900 font-semibold">{bestStreak}</span>
                 | Time Left: 
@@ -221,7 +234,11 @@ export default function GamePage() {
                 key={index}
                 onClick={() => handleOptionClick(option)}
                 disabled={selectedOption !== null}
-                className={`p-6 rounded-lg transition-all duration-200 text-left ${getOptionStyles(option)}`}
+                className={`p-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${getOptionStyles(option)} ${
+                  option === currentQuestion.correctAnswer && selectedOption === option
+                    ? 'animate-[pulse_0.5s_ease-in-out_infinite] shadow-lg shadow-emerald-200'
+                    : ''
+                }`}
               >
                 {option}
               </button>
