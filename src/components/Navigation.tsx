@@ -12,13 +12,14 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 px-4 py-3 border-b border-gray-100">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Image
-              src="/clay-logo.svg"
-              alt="Clay Logo"
-              width={24}
+              src="/rainbow-arch.png"
+              alt="Rainbow Arch Logo"
+              width={32}
               height={24}
-              className="w-6 h-6"
+              className="w-8 h-6"
+              priority
             />
             <span className="text-lg font-semibold text-gray-900">
               Clay Integrations Battle Royale
