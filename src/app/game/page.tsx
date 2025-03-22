@@ -95,7 +95,7 @@ export default function GamePage() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentIndex, selectedOption]);
+  }, [currentIndex, selectedOption, resetGame]);
 
   // Shuffle options when currentIndex changes
   useEffect(() => {
@@ -232,7 +232,7 @@ export default function GamePage() {
             <div className="mt-8 text-center bg-gray-50 rounded-lg p-6">
               {timeLeft === 0 ? (
                 <p className="text-lg font-medium text-[#FF5C5C]">
-                  Time's up! The game will restart.
+                  Time&apos;s up! The game will restart.
                 </p>
               ) : (
                 <p className={`text-lg font-medium ${isCorrect ? 'text-emerald-500' : 'text-[#FF5C5C]'}`}>
