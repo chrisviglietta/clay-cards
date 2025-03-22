@@ -4,8 +4,7 @@ const nextConfig = {
     domains: ['firebasestorage.googleapis.com'],
     unoptimized: true,
   },
-  output: 'export',
-  trailingSlash: true,
+  output: 'standalone',
   env: {
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
