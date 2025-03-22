@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -13,14 +12,33 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3">
-            <Image
-              src="/rainbow-arch.png"
-              alt="Rainbow Arch Logo"
-              width={32}
-              height={24}
+            <svg
+              width="32"
+              height="24"
+              viewBox="0 0 32 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
               className="w-8 h-6"
-              priority
-            />
+            >
+              <path
+                d="M2 22C2 22 7 8 16 8C25 8 30 22 30 22"
+                stroke="#00B4D8"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M6 18C6 18 9 10 16 10C23 10 26 18 26 18"
+                stroke="#FF6B6B"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M10 14C10 14 12 12 16 12C20 12 22 14 22 14"
+                stroke="#FFD93D"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+            </svg>
             <span className="text-lg font-semibold text-gray-900">
               Clay Integrations Battle Royale
             </span>
