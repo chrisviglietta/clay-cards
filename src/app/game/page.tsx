@@ -191,30 +191,30 @@ export default function GamePage() {
         />
       )}
       <Navigation />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12">
         <Image
           src="/flowers-left.svg"
           alt="Decorative flowers"
           width={200}
           height={400}
-          className="absolute left-0 top-0 -z-10"
+          className="absolute left-0 top-0 -z-10 hidden sm:block"
         />
         <Image
           src="/flowers-right.svg"
           alt="Decorative flowers"
           width={200}
           height={400}
-          className="absolute right-0 top-0 -z-10"
+          className="absolute right-0 top-0 -z-10 hidden sm:block"
         />
         
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="bg-white shadow-sm border border-gray-100 rounded-full px-6 py-3 inline-block mb-8">
-              <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
+          <div className="text-center mb-8 sm:mb-12">
+            <div className="bg-white shadow-sm border border-gray-100 rounded-full px-4 sm:px-6 py-2 sm:py-3 inline-block mb-6 sm:mb-8">
+              <span className="text-xs sm:text-sm font-medium text-gray-700 flex items-center gap-2 flex-wrap justify-center">
                 Current Streak: 
                 <span className="text-gray-900 font-semibold flex items-center">
                   <Flame 
-                    className={`w-4 h-4 mr-1 transition-all duration-500 transform ${
+                    className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 transition-all duration-500 transform ${
                       isStreakAnimating 
                         ? 'animate-[bounce_0.5s_ease-in-out_infinite] scale-150 rotate-12' 
                         : ''
@@ -232,14 +232,14 @@ export default function GamePage() {
                 <span className="text-gray-900 font-semibold">{bestStreak}</span>
                 | Time Left: 
                 <span className={`text-gray-900 font-semibold flex items-center ${timeLeft <= 3 ? 'text-[#FF5C5C]' : ''}`}>
-                  <Timer className={`w-4 h-4 mr-1 ${timeLeft <= 3 ? 'text-[#FF5C5C]' : 'text-blue-500'}`} />
+                  <Timer className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 ${timeLeft <= 3 ? 'text-[#FF5C5C]' : 'text-blue-500'}`} />
                   {timeLeft}s
                 </span>
               </span>
             </div>
-            <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
               {currentFlashcard && (
-                <div className="relative w-12 h-12">
+                <div className="relative w-8 h-8 sm:w-12 sm:h-12">
                   <Image
                     src={currentFlashcard.imageUrl}
                     alt={`${currentQuestion.integration} logo`}
@@ -248,22 +248,22 @@ export default function GamePage() {
                   />
                 </div>
               )}
-              <h2 className="text-3xl font-semibold text-gray-900">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
                 {currentQuestion.integration}
               </h2>
             </div>
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">
               {currentQuestion.question}
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
             {shuffledOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionClick(option)}
                 disabled={selectedOption !== null}
-                className={`p-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left ${getOptionStyles(option)} ${
+                className={`p-4 sm:p-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] text-left text-sm sm:text-base ${getOptionStyles(option)} ${
                   option === currentQuestion.correctAnswer && selectedOption === option
                     ? 'animate-[pulse_0.5s_ease-in-out_infinite] shadow-lg shadow-emerald-200'
                     : ''
@@ -275,44 +275,44 @@ export default function GamePage() {
           </div>
 
           {(selectedOption || timeLeft === 0) && (
-            <div className="mt-8 text-center bg-gray-50 rounded-lg p-6">
+            <div className="mt-6 sm:mt-8 text-center bg-gray-50 rounded-lg p-4 sm:p-6">
               {timeLeft === 0 ? (
-                <p className="text-lg font-medium text-[#FF5C5C]">
+                <p className="text-base sm:text-lg font-medium text-[#FF5C5C]">
                   Time&apos;s up! The game will restart.
                 </p>
               ) : (
-                <p className={`text-lg font-medium ${isCorrect ? 'text-emerald-500' : 'text-[#FF5C5C]'}`}>
+                <p className={`text-base sm:text-lg font-medium ${isCorrect ? 'text-emerald-500' : 'text-[#FF5C5C]'}`}>
                   {isCorrect ? 'Correct!' : 'Incorrect!'} {currentQuestion.explanation}
                 </p>
               )}
             </div>
           )}
 
-          {/* Leaderboard - Now moved below the game */}
-          <div className="mt-16">
-            <div className="bg-white shadow-sm border border-gray-100 rounded-xl p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Trophy className="w-5 h-5 text-yellow-500" />
-                <h3 className="text-lg font-semibold text-gray-900">Top 4 Scores</h3>
+          {/* Leaderboard */}
+          <div className="mt-12 sm:mt-16">
+            <div className="bg-white shadow-sm border border-gray-100 rounded-xl p-4 sm:p-6">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900">Top 4 Scores</h3>
               </div>
               <div className="space-y-2">
                 {leaderboard.map((entry, index) => (
-                  <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-gray-500">#{index + 1}</span>
-                      <div className="flex items-center gap-2">
-                        <User className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm font-medium text-gray-900">{entry.name}</span>
+                  <div key={index} className="flex items-center justify-between py-1.5 sm:py-2 border-b border-gray-100 last:border-0">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-xs sm:text-sm font-medium text-gray-500">#{index + 1}</span>
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
+                        <span className="text-xs sm:text-sm font-medium text-gray-900">{entry.name}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-orange-500" />
-                      <span className="text-sm font-semibold text-gray-900">{entry.score}</span>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+                      <span className="text-xs sm:text-sm font-semibold text-gray-900">{entry.score}</span>
                     </div>
                   </div>
                 ))}
                 {leaderboard.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center py-4">No high scores yet. Be the first!</p>
+                  <p className="text-xs sm:text-sm text-gray-500 text-center py-3 sm:py-4">No high scores yet. Be the first!</p>
                 )}
               </div>
             </div>
@@ -320,22 +320,22 @@ export default function GamePage() {
 
           {/* Name Input Modal */}
           {showNameInput && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">New High Score: {tempScore}!</h3>
-                <p className="text-sm text-gray-600 mb-4">Enter your name to be added to the leaderboard.</p>
-                <form onSubmit={handleNameSubmit} className="space-y-4">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-xl p-4 sm:p-6 max-w-md w-full mx-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">New High Score: {tempScore}!</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Enter your name to be added to the leaderboard.</p>
+                <form onSubmit={handleNameSubmit} className="space-y-3 sm:space-y-4">
                   <input
                     type="text"
                     name="name"
                     placeholder="Enter your name"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
+                    className="w-full px-3 sm:px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base text-gray-900 placeholder-gray-500"
                     maxLength={20}
                     required
                   />
                   <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm sm:text-base"
                   >
                     Save Score
                   </button>

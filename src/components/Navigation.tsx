@@ -10,15 +10,15 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 px-4 py-3 border-b border-gray-100">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 sm:gap-8">
+          <div className="flex items-center gap-2 sm:gap-3">
             <svg
               width="32"
               height="24"
               viewBox="0 0 32 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-8 h-6"
+              className="w-6 h-5 sm:w-8 sm:h-6"
             >
               <path
                 d="M2 22C2 22 7 8 16 8C25 8 30 22 30 22"
@@ -39,16 +39,16 @@ export default function Navigation() {
                 strokeLinecap="round"
               />
             </svg>
-            <span className="text-lg font-semibold text-gray-900">
+            <span className="text-base sm:text-lg font-semibold text-gray-900">
               Clay Integrations Battle Royale
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Link
             href="/"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
               !isGamePage
                 ? 'bg-black text-white'
                 : 'text-gray-600 hover:text-gray-900'
@@ -58,7 +58,7 @@ export default function Navigation() {
           </Link>
           <Link
             href="/game"
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
               isGamePage
                 ? 'bg-black text-white'
                 : 'text-gray-600 hover:text-gray-900'
