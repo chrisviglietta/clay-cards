@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 export default function Navigation() {
   const pathname = usePathname();
   const isGamePage = pathname === '/game';
+  const isNewGamePage = pathname === '/new-game';
+  const isQuizPage = pathname === '/quiz';
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 px-4 py-3 border-b border-gray-100">
@@ -49,7 +51,7 @@ export default function Navigation() {
           <Link
             href="/"
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
-              !isGamePage
+              !isGamePage && !isNewGamePage && !isQuizPage
                 ? 'bg-black text-white'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
@@ -65,6 +67,28 @@ export default function Navigation() {
             }`}
           >
             Game
+          </Link>
+          {/* Temporarily hidden New Game link
+          <Link
+            href="/new-game"
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
+              isNewGamePage
+                ? 'bg-black text-white'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            New Game
+          </Link>
+          */}
+          <Link
+            href="/quiz"
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
+              isQuizPage
+                ? 'bg-black text-white'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Quiz
           </Link>
         </div>
       </div>
