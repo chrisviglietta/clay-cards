@@ -181,10 +181,10 @@ export default function QuizPage() {
     
     // Create specific questions based on unique features
     if (description.includes('phone') && description.includes('social')) {
-      return "Need to extract phone numbers from someone's social media profile? Which tool should you use?";
+      return "Need to extract phone numbers from social media profiles? Which tool should you use?";
     }
     if (description.includes('linkedin')) {
-      return "Looking to convert LinkedIn URLs into mobile numbers and personal emails? Which solution fits best?";
+      return "Looking to convert social media URLs into contact information? Which solution fits best?";
     }
     if (description.includes('australian')) {
       return "Searching for contact details specifically for leads in Australia? Which data solution specializes in this region?";
@@ -202,7 +202,7 @@ export default function QuizPage() {
       return "Need to check if business emails are valid and sort them by department? Which service fits your needs?";
     }
     if (description.includes('airtable')) {
-      return "Want to automate your Airtable database updates and record management? Which connector works best?";
+      return "Want to automate your database updates and record management? Which connector works best?";
     }
     if (description.includes('google sheets')) {
       return "Looking to sync and manage your spreadsheet data automatically? Which solution integrates seamlessly?";
